@@ -34,7 +34,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         return instance.getBoolean(rule);
     }
 
-    @Redirect(method = "getXpToDrop", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/GameRules;getBoolean(Lnet/minecraft/world/GameRules$Key;)Z"))
+    @Redirect(method = "getExperienceToDrop", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/GameRules;getBoolean(Lnet/minecraft/world/GameRules$Key;)Z"))
     public boolean doKeepXp(GameRules instance, GameRules.Key<GameRules.BooleanRule> rule) {
         if (rule == GameRules.KEEP_INVENTORY && FairKeepInv.canAffordToKeepInventory(this.experienceLevel, this.inventory)) {
             return true;
@@ -42,7 +42,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         return instance.getBoolean(rule);
     }
 
-    @Inject(at = @At("RETURN"), method = "getXpToDrop", cancellable = true)
+    @Inject(at = @At("RETURN"), method = "getExperienceToDrop", cancellable = true)
     public void getXpToDrop(CallbackInfoReturnable<Integer> cir) {
         if (FairKeepInv.canAffordToKeepInventory(this.experienceLevel, this.inventory)) {
             cir.setReturnValue(0);
