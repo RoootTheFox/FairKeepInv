@@ -8,12 +8,6 @@ public class FairKeepInv {
         int netheriteCount = inv.count(Items.NETHERITE_INGOT);
         int diamondCount = inv.count(Items.DIAMOND);
         boolean hasTotem = inv.contains(Items.TOTEM_OF_UNDYING.getDefaultStack());
-        System.out.println(
-                "---- DEBUG ----\n"+
-                        "experienceLevel: " + xp+"\n"+
-                        "hasTotem: " + hasTotem + "\n"+
-                        "netheriteCount: " + netheriteCount + "\n"+
-                        "diamondCount: " + diamondCount+"\n");
 
         if (xp >= 10) return true;
         if (netheriteCount >= 1) return true;

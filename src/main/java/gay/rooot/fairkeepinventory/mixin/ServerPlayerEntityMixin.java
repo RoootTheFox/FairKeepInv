@@ -48,7 +48,6 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 
     @Redirect(method = "copyFrom", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/GameRules;getBoolean(Lnet/minecraft/world/GameRules$Key;)Z"))
     public boolean doKeepInv(GameRules instance, GameRules.Key<GameRules.BooleanRule> rule) {
-        System.out.println("ServerPlayerEntityMixin.doKeepInv");
         if (rule == GameRules.KEEP_INVENTORY && FairKeepInv.canAffordToKeepInventory(leOldPlayer.experienceLevel, leOldPlayer.getInventory())) {
             // this runs when the player respawns - do the social credit payment here
             PlayerInventory inv = leOldPlayer.getInventory();
@@ -56,19 +55,15 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
             int diamondCount = inv.count(Items.DIAMOND);
 
             if (leOldPlayer.experienceLevel >= 10) {
-                System.out.println("using xp to deduct !!");
                 leOldPlayer.experienceLevel = Math.round(leOldPlayer.experienceLevel * 0.2f);
             } else if (netheriteCount >= 1) {
-                System.out.println("using netherite to deduct !!");
                 removeItemFromInv(Items.NETHERITE_INGOT, 1, inv);
             } else if (diamondCount >= 8) {
-                System.out.println("using diamond to deduct !!");
                 removeItemFromInv(Items.DIAMOND, 8, inv);
             } else {
                 return false;
             }
 
-            System.out.println("deducted !");
             return true;
         }
 
