@@ -28,7 +28,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     private ServerPlayerEntity leOldPlayer;
 
     @Inject(at = @At("HEAD"), method = "copyFrom")
-    public void sex(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo ci) {
+    private void copyFrom(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo ci) {
         leOldPlayer = oldPlayer;
     }
 
